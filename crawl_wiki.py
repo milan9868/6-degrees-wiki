@@ -4,13 +4,14 @@ from bs4 import BeautifulSoup
 import re
 
 
-visited_pages = set()
 
 
-def get_links(url, depth = 0):
-    if depth > 2:
+
+def get_links(url, depth = 0, visited_pages = None):
+    if visited_pages is None:
+        visited_pages = set()
+    if depth >= 2:
         return
-    global visited_pages
     try:
         html = urlopen("https://sr.wikipedia.org"+url)
     except HTTPError:
@@ -23,7 +24,7 @@ def get_links(url, depth = 0):
                 if link.attrs['href'] not in visited_pages:
                     visited_pages.add(link.attrs['href'])
                     print(link.attrs['href'])
-                    get_links(link.attrs['href'], depth + 1)
+                    get_links(link.attrs['href'], depth + 1, visited_pages)
 
 
-get_links("/wiki/Андрус_Ансип")
+get_links("/wiki/Groteska")
