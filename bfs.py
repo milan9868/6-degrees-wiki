@@ -53,9 +53,8 @@ def bfs_search(start_page_title, target_page_title):
                 if linked_page[0] not in visited:
                     queue.append((linked_page[0], path + [linked_page[0]]))
 
-    return None  # No path found
+    return None  
 
-# Example usage
 path = bfs_search("Kevin Bacon", "U.S. Securities and Exchange Commission")
 if path:
     print(" -> ".join(path))
